@@ -1,0 +1,6 @@
+{"SQuAD": {"wh-word": [0.72, 0.68], "lexical": [0.17, 0.14], "emptyqst": [0.85, 0.82], "shuffle": [0.06, 0.05], "bidaf": [0.51, 0.39] },
+ "HotpotQA": {"wh-word": [0.66, 0.65], "lexical": [0.27, 0.26], "emptyqst": [0.75, 0.72], "shuffle": [0.09, 0.10], "bidaf": [0.50, 0.46] },
+ "TriviaQA-web": {"wh-word": [0.45, 0.44], "lexical": [0.27, 0.28], "emptyqst": [0.48, 0.47], "shuffle": [0, 0.01], "bidaf": [0.62, 0.57] },
+ "NewsQA": {"wh-word": [0.68, 0.63], "lexical": [0.63, 0.59], "emptyqst": [0.83, 0.79], "shuffle": [0.06, 0.06], "bidaf": [0.67, 0.56] },
+ "NaturalQuestionsShort": {"wh-word": [0.20, 0.18], "lexical": [0.14, 0.11], "emptyqst": [0.34, 0.33], "shuffle": [0.01, 0.01], "bidaf": [0.39, 0.32] }
+}

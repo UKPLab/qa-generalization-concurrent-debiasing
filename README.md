@@ -1,5 +1,8 @@
 # Improving QA Generalization by Concurrent Modeling of Multiple Biases
 
+This repository contains the data and code to reproduce the results of our paper: https://arxiv.org/abs/2010.03338
+
+
 Please use the following citation:
 
 ```
@@ -58,12 +61,12 @@ python run_qa.py --output_dir Models/mt-base --config_file MRQA_BERTbase.json -o
 
 * Example - single domain Mb_WL method on NaturalQuestions:
 ```
-python run_qa.py --output_dir Models/debiased-WL-NaturalQuestionsShort --config_file MRQA_BERTbase.json -o "{'iterator': {'type': 'distill_iterator'}, 'validation_iterator': {'type': 'distill_iterator'}, 'dataset_reader': {'sample_size': -1}, 'validation_dataset_reader': {'sample_size': -1}, 'train_data_path': 'https://mrqa.s3.us-east-2.amazonaws.com/data/train/NaturalQuestionsShort.jsonl.gz', 'validation_data_path': 'https://mrqa.s3.us-east-2.amazonaws.com/data/dev/NaturalQuestionsShort.jsonl.gz', 'teacher_path': 'Models/NaturalQuestions', 'trainer': {'cuda_device': [CUDE DEVICEID or -1 for CPU], 'num_epochs': 2, 'optimizer': {'type': 'bert_adam', 'lr': 3e-05, 'warmup': 0.1,'t_total': 40000}}}" --do_train --bias_type combine
+python run_qa.py --output_dir Models/debiased-WL-NaturalQuestionsShort --config_file MRQA_BERTbase.json -o "{'iterator': {'type': 'distill_iterator'}, 'validation_iterator': {'type': 'distill_iterator'}, 'dataset_reader': {'sample_size': -1}, 'validation_dataset_reader': {'sample_size': -1}, 'train_data_path': 'https://mrqa.s3.us-east-2.amazonaws.com/data/train/NaturalQuestionsShort.jsonl.gz', 'validation_data_path': 'https://mrqa.s3.us-east-2.amazonaws.com/data/dev/NaturalQuestionsShort.jsonl.gz', 'teacher_path': 'Models/NaturalQuestionsShort', 'trainer': {'cuda_device': [CUDE DEVICEID or -1 for CPU], 'num_epochs': 2, 'optimizer': {'type': 'bert_adam', 'lr': 3e-05, 'warmup': 0.1,'t_total': 40000}}}" --do_train --bias_type combine
 ```
 
 * Example - single domain Mb_CR method on NaturalQuestions:
 ```
-python run_qa.py --output_dir Models/debiased-CR-NaturalQuestionsShort --config_file MRQA_BERTbase.json -o "{'iterator': {'type': 'distill_iterator'}, 'validation_iterator': {'type': 'distill_iterator'}, 'dataset_reader': {'sample_size': -1}, 'validation_dataset_reader': {'sample_size': -1}, 'train_data_path': 'https://mrqa.s3.us-east-2.amazonaws.com/data/train/NaturalQuestionsShort.jsonl.gz', 'validation_data_path': 'https://mrqa.s3.us-east-2.amazonaws.com/data/dev/NaturalQuestionsShort.jsonl.gz', 'teacher_path': 'Models/NaturalQuestions', 'trainer': {'cuda_device': [CUDE DEVICEID or -1 for CPU], 'num_epochs': 2, 'optimizer': {'type': 'bert_adam', 'lr': 3e-05, 'warmup': 0.1,'t_total': 40000}}}" --do_train --bias_type combine --method CR
+python run_qa.py --output_dir Models/debiased-CR-NaturalQuestionsShort --config_file MRQA_BERTbase.json -o "{'iterator': {'type': 'distill_iterator'}, 'validation_iterator': {'type': 'distill_iterator'}, 'dataset_reader': {'sample_size': -1}, 'validation_dataset_reader': {'sample_size': -1}, 'train_data_path': 'https://mrqa.s3.us-east-2.amazonaws.com/data/train/NaturalQuestionsShort.jsonl.gz', 'validation_data_path': 'https://mrqa.s3.us-east-2.amazonaws.com/data/dev/NaturalQuestionsShort.jsonl.gz', 'teacher_path': 'Models/NaturalQuestionsShort', 'trainer': {'cuda_device': [CUDE DEVICEID or -1 for CPU], 'num_epochs': 2, 'optimizer': {'type': 'bert_adam', 'lr': 3e-05, 'warmup': 0.1,'t_total': 40000}}}" --do_train --bias_type combine --method CR
 ```
 
 * Example - multi-domain  Mb_CR method on five dataset:
@@ -77,17 +80,15 @@ Replace bias type *combine* with *wh-word, emptyqst, lexical or bidaf* for debia
 * Example for predicting NaturalQuestions dev using a debiased model:
 
 ```
-python predict.py Models/debiased-WL-NaturalQuestionsShort https://s3.us-east-2.amazonaws.com/mrqa/release/v2/dev/NaturalQuestionsShort.jsonl.gz pred-NaturalQuestionsShort.json
+python predict.py Models/debiased-WL-NaturalQuestionsShort https://s3.us-east-2.amazonaws.com/mrqa/release/v2/dev/NaturalQuestionsShort.jsonl.gz pred-NaturalQuestionsShort.json --cuda_device [CUDE DEVICEID or -1 for CPU]
 ```
 
 **Evaluate**
 ```
-python ../eval_qa.py https://s3.us-east-2.amazonaws.com/mrqa/release/v2/dev/NaturalQuestionsShort.jsonl.gz pred-NaturalQuestionsShort.json
+python ../eval_qa.py https://s3.us-east-2.amazonaws.com/mrqa/release/v2/dev/NaturalQuestionsShort.jsonl.gz pred-NaturalQuestionsShort.json pred-output.csv
 ```
 
 
 ## Acknowledgement
-The code in this repository is build on the repository of [MRQA-Shared-Task-2019](https://github.com/mrqa/MRQA-Shared-Task-2019) with 
-minor changes and additional scripts for knowledge distillation and debiasing. 
-Please refer to the original page for more details.
+The code in this repository is build on the implementation of MRQA-Shared-Task-2019 with minor changes and additional scripts for knowledge distillation and debiasing. The original page can be found [here](https://github.com/mrqa/MRQA-Shared-Task-2019).
 
